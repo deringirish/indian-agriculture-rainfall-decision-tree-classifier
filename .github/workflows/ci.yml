@@ -1,0 +1,35 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    name: Build & Validate Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Sync dependencies
+        run: uv sync
+
+      - name: Run package smoke test
+        run: |
+          uv run python -c "import indian_agriculture_rainfall_decision_tree_classifier as pkg; pkg.main()"
+
+      - name: Execute end-to-end ML notebook
+        run: |
+          uv run python -m nbconvert --to notebook --execute notebooks/indian_agri_rainfall_decision_tree_classification.ipynb --output /dev/null

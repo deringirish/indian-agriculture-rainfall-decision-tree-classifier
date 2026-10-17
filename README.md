@@ -3,6 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.14%2B-blue.svg)](https://www.python.org/)
 [![ML Framework](https://img.shields.io/badge/framework-scikit--learn-orange.svg)](https://scikit-learn.org/)
 [![Package Manager](https://img.shields.io/badge/manager-uv-purple.svg)](https://github.com/astral-sh/uv)
+[![CI Pipeline](https://github.com/deringirish/indian-agriculture-rainfall-decision-tree-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/deringirish/indian-agriculture-rainfall-decision-tree-classifier/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A structured machine learning project analyzing the interplay between Indian rainfall patterns and agricultural crop yield outcomes using Decision Tree Classification. This project demonstrates end-to-end data preparation, pipeline construction, baseline model diagnosis, hyperparameter tuning via cross-validation, and feature importance interpretation.
@@ -42,6 +43,12 @@ The dataset consolidates multi-decade historical records of Indian agriculture, 
 
 ```text
 .
+├── .github/
+│   └── workflows/
+│       └── ci.yml                                # Automated CI testing pipeline
+├── assets/
+│   ├── confusion_matrix_comparison.png           # Visual evaluation across stages
+│   └── feature_importance_top15.png              # Top 15 influential features plot
 ├── data/
 │   └── AgricultureRainfall_1998-2017.csv         # Historical dataset
 ├── notebooks/
@@ -51,6 +58,7 @@ The dataset consolidates multi-decade historical records of Indian agriculture, 
 │       └── __init__.py                           # Modular Python package
 ├── .gitignore                                    # Git ignore configuration
 ├── .python-version                               # Python 3.14+ version pin
+├── LICENSE                                       # MIT License
 ├── pyproject.toml                                # Project metadata and dependencies
 ├── README.md                                     # Project documentation
 └── uv.lock                                       # Deterministic dependency lockfile
@@ -125,6 +133,10 @@ The workflow is structured into logical, reproducible stages:
 | **Model 2 (Accuracy Tuned, max_depth=15)** | **80.11%** | **70.05%** | **0.6302** | 0.3800 | **0.8714** | **10.06%** | **Best Accuracy & Balance** |
 | **Model 3 (Macro F1 Tuned, min_leaf=5)** | 75.68% | 68.59% | 0.6117 | 0.3578 | 0.8608 | 7.09% | Strongest Regularization |
 
+### Confusion Matrix Comparison Across Stages
+
+![Confusion Matrix Comparison](assets/confusion_matrix_comparison.png)
+
 ### Key Diagnostic Insights:
 - **Baseline Overfitting:** An unconstrained tree achieves 100% training accuracy by memorizing training set noise, resulting in poor generalization on unseen test data (gap of 31.18%).
 - **Pruning Effect:** Restricting `max_depth` to 15 drops the generalization gap from 31.18% down to 10.06% while boosting test accuracy to 70.05%.
@@ -133,6 +145,10 @@ The workflow is structured into logical, reproducible stages:
   2. `Area` (Cultivated Land Area)
   3. `Monsoon` (Monsoon Season Rainfall)
   4. `Annual` (Annual Rainfall)
+
+### Top 15 Most Influential Features
+
+![Top 15 Feature Importances](assets/feature_importance_top15.png)
 
 ---
 
