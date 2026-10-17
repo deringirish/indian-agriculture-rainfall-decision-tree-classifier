@@ -576,7 +576,7 @@ wheels = [
 ]
 
 [[package]]
-name = "indian-agriculture-and-rainfall-prediction-using-decision-tree"
+name = "indian-agriculture-rainfall-decision-tree-classifier"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

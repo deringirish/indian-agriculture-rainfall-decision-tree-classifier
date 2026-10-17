@@ -46,7 +46,7 @@ The dataset consolidates multi-decade historical records of Indian agriculture, 
 ├── notebooks/
 │   └── indian_agri_rainfall_decision_tree_classification.ipynb  # Primary documented workflow notebook
 ├── src/
-│   └── indian_agriculture_and_rainfall_prediction_using_decision_tree/
+│   └── indian_agriculture_rainfall_decision_tree_classifier/
 │       └── __init__.py                           # Modular Python package
 ├── .gitignore                                    # Git ignore configuration
 ├── .python-version                               # Python 3.14+ version pin
@@ -65,8 +65,8 @@ This project is configured to run with **Python 3.14+** using [`uv`](https://git
 
 1. Clone or download the repository:
    ```bash
-   git clone <repository-url>
-   cd "Indian Agriculture Rainfall Prediction Using Decision Tree"
+   git clone https://github.com/deringirish/indian-agriculture-rainfall-decision-tree-classifier.git
+   cd indian-agriculture-rainfall-decision-tree-classifier
    ```
 
 2. Synchronize virtual environment and dependencies:

@@ -1,5 +1,5 @@
 [project]
-name = "indian-agriculture-and-rainfall-prediction-using-decision-tree"
+name = "indian-agriculture-rainfall-decision-tree-classifier"
 version = "0.1.0"
 description = "Machine Learning Decision Tree Classification for Indian Agriculture Rainfall and Crop Yield Prediction"
 readme = "README.md"
@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-indian-agriculture-and-rainfall-prediction-using-decision-tree = "indian_agriculture_and_rainfall_prediction_using_decision_tree:main"
+indian-agriculture-rainfall-decision-tree-classifier = "indian_agriculture_rainfall_decision_tree_classifier:main"
 
 [build-system]
 requires = ["uv_build>=0.12.18,<0.13.0"]
