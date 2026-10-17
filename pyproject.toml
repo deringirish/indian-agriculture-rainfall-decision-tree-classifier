@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Machine Learning Decision Tree Classification for Indian Agriculture Rainfall and Crop Yield Prediction"
 readme = "README.md"
 authors = [
-    { name = "deringirish", email = "girishderin@gmail.com" }
+    { name = "Derin Girish", email = "girishderin@gmail.com" }
 ]
 requires-python = ">=3.14.7"
 dependencies = [

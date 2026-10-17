@@ -146,7 +146,7 @@ The workflow is structured into logical, reproducible stages:
 
 ## 👤 Author & Acknowledgments
 
-- **Author:** Girish ([@deringirish](https://github.com/deringirish))
+- **Author:** Derin Girish ([@deringirish](https://github.com/deringirish))
 - **Dataset Credit:** [Kaggle Dataset by cccodelao](https://www.kaggle.com/datasets/cccodelao/indian-agriculture-and-rainfall-data-1998-2017)
 
 ---
