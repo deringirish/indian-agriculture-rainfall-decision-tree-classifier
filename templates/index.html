@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Agriculture & Rainfall Prediction | Decision Tree</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header / Hero Section -->
+        <header class="header">
+            <div class="badge-row">
+                <span class="badge">Machine Learning</span>
+                <span class="badge badge-accent">Decision Tree Classifier</span>
+                <span class="badge">Python 3.14+</span>
+            </div>
+            <h1>Indian Agriculture & Rainfall Analysis</h1>
+            <p class="subtitle">Predict whether crop yield will be <strong>Favorable</strong> or <strong>Unfavorable</strong> based on regional rainfall metrics and historical yield records.</p>
+        </header>
+
+        <!-- Main Layout: Form & Results -->
+        <main class="main-content">
+            <!-- Input Card -->
+            <section class="card form-card">
+                <div class="card-header">
+                    <h2>🌾 Crop & Climate Predictors</h2>
+                    <p>Enter the agricultural parameters or click a preset sample below.</p>
+                </div>
+
+                <!-- Preset Quick Fill Buttons -->
+                <div class="preset-section">
+                    <span class="preset-label">Quick Presets:</span>
+                    <button type="button" class="btn-preset" onclick="fillPreset('punjab', 'Wheat', 2017, 3500, 650, 480, 4.2)">Punjab Wheat</button>
+                    <button type="button" class="btn-preset" onclick="fillPreset('tamil nadu', 'Rice', 2016, 12000, 950, 620, 3.8)">Tamil Nadu Rice</button>
+                    <button type="button" class="btn-preset" onclick="fillPreset('maharashtra', 'Cotton(lint)', 2015, 8500, 800, 550, 1.2)">Maharashtra Cotton</button>
+                </div>
+
+                <form id="prediction-form" class="prediction-form">
+                    <div class="form-grid">
+                        <!-- State Selection -->
+                        <div class="form-group">
+                            <label for="state">State / Union Territory</label>
+                            <select id="state" name="state" required>
+                                <option value="" disabled selected>Select an Indian State</option>
+                                {% for s in states %}
+                                    <option value="{{ s }}">{{ s.title() }}</option>
+                                {% endfor %}
+                            </select>
+                            <small class="helper-text">Regional geographic location</small>
+                        </div>
+
+                        <!-- Crop Selection -->
+                        <div class="form-group">
+                            <label for="crop">Crop Type</label>
+                            <select id="crop" name="crop" required>
+                                <option value="" disabled selected>Select a Crop</option>
+                                {% for c in crops %}
+                                    <option value="{{ c }}">{{ c }}</option>
+                                {% endfor %}
+                            </select>
+                            <small class="helper-text">Specific agricultural commodity</small>
+                        </div>
+
+                        <!-- Year -->
+                        <div class="form-group">
+                            <label for="year">Harvest Year</label>
+                            <input type="number" id="year" name="year" min="1990" max="2035" value="2026" required>
+                            <small class="helper-text">Calendar observation year</small>
+                        </div>
+
+                        <!-- Cultivated Area -->
+                        <div class="form-group">
+                            <label for="area">Cultivated Area (Hectares)</label>
+                            <input type="number" id="area" name="area" step="0.01" min="1" placeholder="e.g. 4350" required>
+                            <small class="helper-text">Total land under cultivation</small>
+                        </div>
+
+                        <!-- Annual Rainfall -->
+                        <div class="form-group">
+                            <label for="annual">Annual Rainfall (mm)</label>
+                            <input type="number" id="annual" name="annual" step="0.1" min="0" placeholder="e.g. 1150.0" required>
+                            <small class="helper-text">Total precipitation received per year</small>
+                        </div>
+
+                        <!-- Monsoon Rainfall -->
+                        <div class="form-group">
+                            <label for="monsoon">Monsoon Rainfall (mm)</label>
+                            <input type="number" id="monsoon" name="monsoon" step="0.1" min="0" placeholder="e.g. 780.0" required>
+                            <small class="helper-text">Rainfall during monsoon season</small>
+                        </div>
+
+                        <!-- Previous Year Yield -->
+                        <div class="form-group form-group-full">
+                            <label for="prev_yield">Previous Year's Yield (Metric Tons / Hectare)</label>
+                            <input type="number" id="prev_yield" name="prev_yield" step="0.01" min="0" placeholder="e.g. 2.45" required>
+                            <small class="helper-text">Prior season's crop productivity benchmark</small>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submit-btn" class="btn-primary">
+                        <span class="btn-text">Predict Yield Outcome</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Results Card -->
+            <section class="card result-card" id="result-card">
+                <div class="card-header">
+                    <h2>📊 Prediction Analysis</h2>
+                    <p>Real-time classification result from the trained decision tree.</p>
+                </div>
+
+                <!-- Empty State Placeholder -->
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon">🌱</div>
+                    <h3>Awaiting Parameters</h3>
+                    <p>Fill out the form on the left and click <strong>Predict Yield Outcome</strong> to evaluate crop yield viability.</p>
+                </div>
+
+                <!-- Dynamic Prediction Result (Hidden Initially) -->
+                <div id="result-content" class="result-content" style="display: none;">
+                    <div id="outcome-badge" class="outcome-badge">
+                        <span id="outcome-icon" class="outcome-icon"></span>
+                        <div>
+                            <div class="outcome-subtitle">Predicted Classification:</div>
+                            <div id="outcome-title" class="outcome-title"></div>
+                        </div>
+                    </div>
+
+                    <!-- Confidence Bar -->
+                    <div class="confidence-box">
+                        <div class="confidence-header">
+                            <span>Model Confidence</span>
+                            <span id="confidence-percentage" class="confidence-val"></span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Probability Breakdown -->
+                    <div class="probabilities-grid">
+                        <div class="prob-card prob-favorable">
+                            <span class="prob-label">Favorable (Class 1)</span>
+                            <span id="prob-fav-val" class="prob-val"></span>
+                        </div>
+                        <div class="prob-card prob-unfavorable">
+                            <span class="prob-label">Unfavorable (Class 0)</span>
+                            <span id="prob-unfav-val" class="prob-val"></span>
+                        </div>
+                    </div>
+
+                    <!-- Interpretation Box -->
+                    <div class="interpretation-box">
+                        <h4>Agricultural Summary</h4>
+                        <p id="outcome-summary"></p>
+                    </div>
+
+                    <!-- Model Metadata -->
+                    <div class="metadata-footer">
+                        <span>Algorithm: DecisionTreeClassifier (max_depth=15)</span>
+                        <span>Evaluation metric: 5-Fold Cross-Validation</span>
+                    </div>
+                </div>
+
+                <!-- Error Display -->
+                <div id="error-message" class="error-message" style="display: none;"></div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Developed by <strong>Derin Girish</strong> &bull; <a href="https://github.com/deringirish/indian-agriculture-rainfall-decision-tree-classifier" target="_blank" rel="noopener">GitHub Repository</a> &bull; Licensed under MIT</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

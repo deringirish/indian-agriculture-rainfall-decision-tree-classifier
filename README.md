@@ -58,6 +58,14 @@ The dataset consolidates multi-decade historical records of Indian agriculture, 
 ├── src/
 │   └── indian_agriculture_rainfall_decision_tree_classifier/
 │       └── __init__.py                           # Modular Python package
+├── static/
+│   ├── css/
+│   │   └── style.css                             # Modern responsive stylesheet
+│   └── js/
+│       └── app.js                                # Frontend asynchronous fetch logic
+├── templates/
+│   └── index.html                                # HTML5 web application template
+├── app.py                                        # Flask backend server & REST API
 ├── .gitignore                                    # Git ignore configuration
 ├── .python-version                               # Python 3.14+ version pin
 ├── LICENSE                                       # MIT License
@@ -88,6 +96,12 @@ This project is configured to run with **Python 3.14+** using [`uv`](https://git
 3. Launch the Jupyter Notebook environment:
    ```bash
    uv run jupyter notebook
+   ```
+
+4. Launch the Interactive Web Application (HTML / Flask):
+   ```bash
+   uv run python app.py
+   # Open http://127.0.0.1:5000 in your browser
    ```
 
 ### Option 2: Using Standard `pip`
