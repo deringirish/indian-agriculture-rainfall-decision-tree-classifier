@@ -51,6 +51,8 @@ The dataset consolidates multi-decade historical records of Indian agriculture, 
 │   └── feature_importance_top15.png              # Top 15 influential features plot
 ├── data/
 │   └── AgricultureRainfall_1998-2017.csv         # Historical dataset
+├── models/
+│   └── crop_yield_decision_tree_pipeline.joblib  # Exported pipeline artifact
 ├── notebooks/
 │   └── indian_agri_rainfall_decision_tree_classification.ipynb  # Primary documented workflow notebook
 ├── src/
@@ -98,6 +100,39 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install pandas numpy matplotlib seaborn scikit-learn notebook ipykernel
+```
+
+---
+
+## 📦 Quickstart: Using the Exported Model for Inference
+
+The trained and tuned pipeline is saved in `models/crop_yield_decision_tree_pipeline.joblib`. You can load it and generate predictions directly on raw, unencoded data:
+
+```python
+import joblib
+import pandas as pd
+
+# 1. Load the production pipeline
+pipeline = joblib.load("models/crop_yield_decision_tree_pipeline.joblib")
+
+# 2. Input raw agricultural observation
+sample = pd.DataFrame([{
+    "State": "punjab",
+    "Crop": "Wheat",
+    "Year": 2017,
+    "Area": 3500.0,
+    "Annual": 650.0,
+    "Monsoon": 480.0,
+    "PrevYearYield": 4.2
+}])
+
+# 3. Predict class outcome and probability
+prediction = pipeline.predict(sample)[0]
+probabilities = pipeline.predict_proba(sample)[0]
+
+label = "Favorable (1)" if prediction == 1 else "Unfavorable (0)"
+print(f"Predicted Outcome: {label}")
+print(f"Probabilities [Unfavorable, Favorable]: {probabilities}")
 ```
 
 ---
