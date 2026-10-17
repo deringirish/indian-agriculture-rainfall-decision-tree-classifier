@@ -3,6 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.14%2B-blue.svg)](https://www.python.org/)
 [![ML Framework](https://img.shields.io/badge/framework-scikit--learn-orange.svg)](https://scikit-learn.org/)
 [![Package Manager](https://img.shields.io/badge/manager-uv-purple.svg)](https://github.com/astral-sh/uv)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A structured machine learning project analyzing the interplay between Indian rainfall patterns and agricultural crop yield outcomes using Decision Tree Classification. This project demonstrates end-to-end data preparation, pipeline construction, baseline model diagnosis, hyperparameter tuning via cross-validation, and feature importance interpretation.
 
@@ -147,3 +148,9 @@ The workflow is structured into logical, reproducible stages:
 
 - **Author:** Girish ([@deringirish](https://github.com/deringirish))
 - **Dataset Credit:** [Kaggle Dataset by cccodelao](https://www.kaggle.com/datasets/cccodelao/indian-agriculture-and-rainfall-data-1998-2017)
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
