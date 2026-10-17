@@ -32,4 +32,4 @@ jobs:
 
       - name: Execute end-to-end ML notebook
         run: |
-          uv run python -m nbconvert --to notebook --execute notebooks/indian_agri_rainfall_decision_tree_classification.ipynb --output /dev/null
+          uv run python -m nbconvert --to notebook --execute notebooks/indian_agri_rainfall_decision_tree_classification.ipynb --output-dir /tmp --output test_ci.ipynb
