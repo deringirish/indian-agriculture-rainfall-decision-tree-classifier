@@ -1,0 +1,26 @@
+[project]
+name = "indian-agriculture-and-rainfall-prediction-using-decision-tree"
+version = "0.1.0"
+description = "Machine Learning Decision Tree Classification for Indian Agriculture Rainfall and Crop Yield Prediction"
+readme = "README.md"
+authors = [
+    { name = "deringirish", email = "girishderin@gmail.com" }
+]
+requires-python = ">=3.14.7"
+dependencies = [
+    "ipykernel>=7.4.0",
+    "matplotlib>=3.11.2",
+    "notebook>=7.6.3",
+    "numpy>=2.5.4",
+    "pandas>=3.0.6",
+    "scikit-learn>=1.9.1",
+    "seaborn>=0.13.2",
+    "statsmodels>=0.15.0",
+]
+
+[project.scripts]
+indian-agriculture-and-rainfall-prediction-using-decision-tree = "indian_agriculture_and_rainfall_prediction_using_decision_tree:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
